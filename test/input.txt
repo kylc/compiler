@@ -1,4 +1,6 @@
 ["test string"
   ["another test" 100 -100 +100 bool int string float]
+  [not sin cos tan]
+  [+ - * / % ^ and or]
 ]
 
