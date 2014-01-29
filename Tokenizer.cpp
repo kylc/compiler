@@ -26,25 +26,22 @@ boost::shared_ptr<Token> StringToken::parse(std::fstream &fs) {
         if(next == '"') {
           state = 1;
         } else {
-          state = 9;
+          state = ERROR_STATE;
         }
         break;
       case 1:
         if(next == '"') {
-          state = 2;
-        } else {
+          return boost::shared_ptr<Token>(new StringToken(value));
+        } else if(std::isalnum(next) || std::isspace(next)) {
           value += next;
+        } else {
+          state = ERROR_STATE;
         }
         break;
-      case 2:
-        fs.putback(next);
-        return boost::shared_ptr<Token>(new StringToken(value));
-      default:
+      case ERROR_STATE:
         return NULL;
     }
   }
-
-  return NULL;
 }
 
 boost::shared_ptr<Token> Tokenizer::next(std::fstream &fs) {

@@ -4,6 +4,8 @@
 #include <boost/shared_ptr.hpp>
 #include <fstream>
 
+#define ERROR_STATE 99999
+
 class Token {
 public:
   Token(std::string value) : value(value) {}
