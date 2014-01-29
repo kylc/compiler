@@ -11,8 +11,12 @@ public:
   StringToken(std::string value) : Token(value) {}
 
   std::string getTagName() { return "STRING"; }
+  std::string getValue() { return value; }
 
   static boost::shared_ptr<Token> parse(std::fstream &fs);
+
+private:
+  std::string value;
 };
 
 #endif

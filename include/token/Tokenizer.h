@@ -8,6 +8,7 @@
 #include "ParenToken.h"
 #include "StringToken.h"
 #include "IntToken.h"
+#include "TypeToken.h"
 
 class Tokenizer {
 public:
@@ -19,7 +20,8 @@ typedef boost::shared_ptr<Token> (*TokenParsingFunc)(std::fstream &fs);
 const TokenParsingFunc TOKEN_PARSING_FUNCS[] ={
   &ParenToken::parse,
   &StringToken::parse,
-  &IntToken::parse
+  &IntToken::parse,
+  &TypeToken::parse
 };
 
 const size_t TOKEN_PARSING_FUNCS_LENGTH = sizeof(TOKEN_PARSING_FUNCS) /

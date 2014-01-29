@@ -8,11 +8,15 @@
 
 class IntToken : public Token {
 public:
-  IntToken(std::string value) : Token(value) {}
+  IntToken(std::string text, int value) : Token(text), value(value) {}
 
   std::string getTagName() { return "INT"; }
+  int getValue() { return value; }
 
   static boost::shared_ptr<Token> parse(std::fstream &fs);
+
+private:
+  int value;
 };
 
 #endif

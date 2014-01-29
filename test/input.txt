@@ -1,2 +1,4 @@
-["test string" "another test" 100 -100 +100]
+["test string"
+  ["another test" 100 -100 +100 bool int string float]
+]
 
