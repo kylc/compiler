@@ -114,7 +114,7 @@ int main(int argc, char **argv) {
 
     boost::shared_ptr<Token> next = tokenizer.next(fs);
     if(next) {
-      std::cout << "<" << next->getTagName() << ", " << next->getValue() << "> ";
+      std::cout << "<" << next->getTagName() << ", " << next->getText() << "> ";
     }
   }
 

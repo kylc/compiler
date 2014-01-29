@@ -10,7 +10,7 @@ class Token {
 public:
   Token(std::string value) : value(value) {}
 
-  std::string getValue() { return value; }
+  std::string getText() { return value; }
 
   virtual std::string getTagName() = 0;
 
