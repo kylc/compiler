@@ -89,6 +89,9 @@ boost::shared_ptr<Token> Tokenizer::next(std::fstream &fs) {
     }
   }
 
+  std::cerr << "Compiler error!" << std::endl;
+  exit(0);
+
   return NULL;
 }
 
