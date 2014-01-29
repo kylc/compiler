@@ -44,6 +44,37 @@ boost::shared_ptr<Token> StringToken::parse(std::fstream &fs) {
   }
 }
 
+boost::shared_ptr<Token> IntToken::parse(std::fstream &fs) {
+  std::string value;
+
+  int state = 0;
+  while(true) {
+    char next = fs.get();
+
+    switch(state) {
+      case 0:
+        if(next == '+' || next == '-' || std::isdigit(next)) {
+          state = 1;
+          value += next;
+        } else {
+          state = ERROR_STATE;
+        }
+        break;
+      case 1:
+        if(std::isdigit(next)) {
+          state = 1;
+          value += next;
+        } else {
+          fs.putback(next);
+          return boost::shared_ptr<Token>(new IntToken(value));
+        }
+        break;
+      case ERROR_STATE:
+        return NULL;
+    }
+  }
+}
+
 boost::shared_ptr<Token> Tokenizer::next(std::fstream &fs) {
   for(size_t i = 0; i < TOKEN_PARSING_FUNCS_LENGTH; i++) {
     std::streampos pos = fs.tellg();

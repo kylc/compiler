@@ -36,6 +36,15 @@ public:
   static boost::shared_ptr<Token> parse(std::fstream &fs);
 };
 
+class IntToken : public Token {
+public:
+  IntToken(std::string value) : Token(value) {}
+
+  std::string getTagName() { return "INT"; }
+
+  static boost::shared_ptr<Token> parse(std::fstream &fs);
+};
+
 class Tokenizer {
 public:
   boost::shared_ptr<Token> next(std::fstream &fs);
@@ -45,7 +54,8 @@ typedef boost::shared_ptr<Token> (*TokenParsingFunc)(std::fstream &fs);
 
 const TokenParsingFunc TOKEN_PARSING_FUNCS[] ={
   &ParenToken::parse,
-  &StringToken::parse
+  &StringToken::parse,
+  &IntToken::parse
 };
 
 const size_t TOKEN_PARSING_FUNCS_LENGTH = sizeof(TOKEN_PARSING_FUNCS) /
