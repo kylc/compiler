@@ -109,8 +109,13 @@ int main(int argc, char **argv) {
 
   Tokenizer tokenizer;
   while(fs.good()) {
-    while(fs.peek() == '\n') fs.get();
-    while(fs.peek() == ' ') fs.get();
+    // Clear any whitespace until the next token. This works because no token
+    // depends on _leading_ whitespace, as long as it is separated from the
+    // previous token.
+    while(std::isspace(fs.peek())) fs.get();
+
+    // Now that we've cleared whitespace, may be at EOF.
+    if(!fs.good()) break;
 
     boost::shared_ptr<Token> next = tokenizer.next(fs);
     if(next) {
