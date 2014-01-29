@@ -26,7 +26,7 @@ boost::shared_ptr<Token> StringToken::parse(std::fstream &fs) {
         if(next == '"') {
           state = 1;
         } else {
-          state = ERROR_STATE;
+          state = REJECT_STATE;
         }
         break;
       case 1:
@@ -35,10 +35,10 @@ boost::shared_ptr<Token> StringToken::parse(std::fstream &fs) {
         } else if(std::isalnum(next) || std::isspace(next)) {
           value += next;
         } else {
-          state = ERROR_STATE;
+          state = REJECT_STATE;
         }
         break;
-      case ERROR_STATE:
+      case REJECT_STATE:
         return NULL;
     }
   }
@@ -57,7 +57,7 @@ boost::shared_ptr<Token> IntToken::parse(std::fstream &fs) {
           state = 1;
           value += next;
         } else {
-          state = ERROR_STATE;
+          state = REJECT_STATE;
         }
         break;
       case 1:
@@ -69,7 +69,7 @@ boost::shared_ptr<Token> IntToken::parse(std::fstream &fs) {
           return boost::shared_ptr<Token>(new IntToken(value));
         }
         break;
-      case ERROR_STATE:
+      case REJECT_STATE:
         return NULL;
     }
   }
