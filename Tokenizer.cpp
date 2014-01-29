@@ -5,9 +5,9 @@ boost::shared_ptr<Token> ParenToken::parse(std::fstream &fs) {
   std::string s(1, next);
 
   boost::shared_ptr<Token> token = NULL;
-  if(next == '(') {
+  if(next == '[') {
     token = boost::shared_ptr<Token>(new ParenToken(s));
-  } else if(next == ')') {
+  } else if(next == ']') {
     token = boost::shared_ptr<Token>(new ParenToken(s));
   }
 
