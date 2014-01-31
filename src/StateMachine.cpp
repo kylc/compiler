@@ -57,12 +57,8 @@ StateMachine::MachineState StateMachine::consumeFromStream(std::istream &is) {
     char c = is.get();
 
     StateMachine::MachineState ret = accept(c);
-    if(ret == StateMachine::Continue) {
-      continue;
-    } else if(ret == StateMachine::Accept) {
-      return StateMachine::Accept;
-    } else {
-      return StateMachine::Reject;
+    if(ret != StateMachine::Continue) {
+      return ret;
     }
   }
 
