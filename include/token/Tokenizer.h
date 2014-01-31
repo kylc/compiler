@@ -11,6 +11,7 @@
 #include "TypeToken.h"
 #include "UnopToken.h"
 #include "BinopToken.h"
+#include "NameToken.h"
 
 class Tokenizer {
 public:
@@ -25,7 +26,8 @@ const TokenParsingFunc TOKEN_PARSING_FUNCS[] ={
   &IntToken::parse,
   &TypeToken::parse,
   &UnopToken::parse,
-  &BinopToken::parse
+  &BinopToken::parse,
+  &NameToken::parse
 };
 
 const size_t TOKEN_PARSING_FUNCS_LENGTH = sizeof(TOKEN_PARSING_FUNCS) /
