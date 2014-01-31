@@ -1,8 +1,29 @@
 #include "token/StringToken.h"
 
-boost::shared_ptr<Token> StringToken::parse(std::fstream &fs) {
-  std::string value;
+#include "StateMachine.h"
 
+boost::shared_ptr<Token> StringToken::parse(std::fstream &fs) {
+  StateMachineBuilder b;
+  // b.addState(0);
+  b.addTransition('"', 0, 1);
+  b.addState(1);
+
+  for(char c = 'A'; c < 'z'; c++) {
+    b.addConsumingTransition(c, 1, 1);
+  }
+
+  b.addConsumingTransition(' ', 1, 1);
+  b.addTransition('"', 1, 2);
+  b.addEndState(2);
+
+  StateMachine m = b.build();
+  if(m.consumeFromStream(fs) == StateMachine::Accept) {
+    return boost::shared_ptr<Token>(new StringToken(m.getConsumed()));
+  } else {
+    return NULL;
+  }
+
+  /*
   int state = 0;
   while(true) {
     char next = fs.get();
@@ -28,5 +49,6 @@ boost::shared_ptr<Token> StringToken::parse(std::fstream &fs) {
         return NULL;
     }
   }
+  */
 }
 
