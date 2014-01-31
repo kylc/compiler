@@ -1,3 +1,7 @@
+#include <iostream>
+#include <string>
+#include <unordered_set>
+
 #include "token/Tokenizer.h"
 
 int main(int argc, char **argv) {
@@ -12,6 +16,8 @@ int main(int argc, char **argv) {
     return 1;
   }
 
+  std::unordered_set<std::string> keywords({ "if", "while", "let", "stdout" });
+
   Tokenizer tokenizer;
   while(fs.good()) {
     // Clear any whitespace until the next token. This works because no token
@@ -24,7 +30,11 @@ int main(int argc, char **argv) {
 
     boost::shared_ptr<Token> next = tokenizer.next(fs);
     if(next) {
-      std::cout << "<" << next->getTagName() << ", " << next->getText() << "> ";
+      if(typeid(*next) == typeid(NameToken) && keywords.count(next->getText()) > 0) {
+        std::cout << "<KEYWORD, " << next->getText() << "> ";
+      } else {
+        std::cout << "<" << next->getTagName() << ", " << next->getText() << "> ";
+      }
     }
   }
 
