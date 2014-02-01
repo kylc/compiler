@@ -11,7 +11,7 @@ public:
   enum Types { Plus, Minus, Times, Divide, Modulus, Power, Or, And };
   BinopToken(std::string text, Types type) : Token(text), type(type) {}
 
-  std::string getTagName() { return "UNOP"; }
+  std::string getTagName() { return "BINOP"; }
   Types getType() { return type; }
 
   static boost::shared_ptr<Token> parse(std::fstream &fs);
