@@ -22,8 +22,12 @@ boost::shared_ptr<Token> NameToken::parse(std::fstream &fs) {
           state = 1;
           text += next;
         } else {
+          fs.putback(next);
           return boost::shared_ptr<Token>(new NameToken(text));
         }
+        break;
+      case REJECT_STATE:
+        return NULL;
     }
   }
 }
