@@ -1,6 +1,6 @@
 #include "token/StringToken.h"
 
-#include "StateMachine.h"
+#include "util/StateMachineBuilder.h"
 
 boost::shared_ptr<Token> StringToken::parse(std::fstream &fs) {
   StateMachineBuilder b;
