@@ -23,11 +23,11 @@ typedef boost::shared_ptr<Token> (*TokenParsingFunc)(std::fstream &fs);
 const TokenParsingFunc TOKEN_PARSING_FUNCS[] ={
   &ParenToken::parse,
   &StringToken::parse,
-  &IntToken::parse,
-  &TypeToken::parse,
   &UnopToken::parse,
   &BinopToken::parse,
-  &NameToken::parse
+  &TypeToken::parse,
+  &NameToken::parse,
+  &IntToken::parse
 };
 
 const size_t TOKEN_PARSING_FUNCS_LENGTH = sizeof(TOKEN_PARSING_FUNCS) /
