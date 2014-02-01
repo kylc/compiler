@@ -3,7 +3,7 @@
   [not sin cos tan]
   [+ - * / % ^ and or]
   aname anothername a_name bla_bla123
-  _notname 123notname
+  _aname 123notname
   stdout if while let notkw
 ]
 
