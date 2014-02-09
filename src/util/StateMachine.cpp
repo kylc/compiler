@@ -1,5 +1,7 @@
 #include "util/StateMachine.h"
 
+#include <iostream>
+
 StateMachine::MachineState StateMachine::accept(char input) {
   for(size_t i = 0; i < transitions.size(); i++) {
     Transition t = transitions[i];

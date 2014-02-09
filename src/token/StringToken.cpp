@@ -2,7 +2,7 @@
 
 #include "util/StateMachineBuilder.h"
 
-boost::shared_ptr<Token> StringToken::parse(std::fstream &fs) {
+boost::shared_ptr<Token> StringToken::parse(std::istream &is) {
   StateMachineBuilder b;
   // b.addState(0);
   b.addTransition('"', 0, 1);
@@ -17,7 +17,7 @@ boost::shared_ptr<Token> StringToken::parse(std::fstream &fs) {
   b.addEndState(2);
 
   StateMachine m = b.build();
-  if(m.consumeFromStream(fs) == StateMachine::Accept) {
+  if(m.consumeFromStream(is) == StateMachine::Accept) {
     return boost::shared_ptr<Token>(new StringToken(m.getConsumed()));
   } else {
     return NULL;
@@ -26,7 +26,7 @@ boost::shared_ptr<Token> StringToken::parse(std::fstream &fs) {
   /*
   int state = 0;
   while(true) {
-    char next = fs.get();
+    char next = is.get();
 
     switch(state) {
       case 0:

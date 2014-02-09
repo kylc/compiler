@@ -1,13 +1,13 @@
 #include "token/IntToken.h"
 
-boost::shared_ptr<Token> IntToken::parse(std::fstream &fs) {
+boost::shared_ptr<Token> IntToken::parse(std::istream &is) {
   std::string text;
   bool positive = true;
   int value = 0;
 
   int state = 0;
   while(true) {
-    char next = fs.get();
+    char next = is.get();
 
     switch(state) {
       case 0:
@@ -31,7 +31,7 @@ boost::shared_ptr<Token> IntToken::parse(std::fstream &fs) {
           text += next;
           state = 1;
         } else {
-          fs.putback(next);
+          is.putback(next);
           value = positive ? value : -value;
           return boost::shared_ptr<Token>(new IntToken(text, value));
         }

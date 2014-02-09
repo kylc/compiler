@@ -1,7 +1,7 @@
 #ifndef _PAREN_TOKEN_H_
 #define _PAREN_TOKEN_H_
 
-#include <fstream>
+#include <istream>
 #include <boost/shared_ptr.hpp>
 
 #include "Token.h"
@@ -14,7 +14,7 @@ public:
   std::string getTagName() { return "PAREN"; }
   Types getType() { return type; }
 
-  static boost::shared_ptr<Token> parse(std::fstream &fs);
+  static boost::shared_ptr<Token> parse(std::istream &is);
 
 private:
   Types type;

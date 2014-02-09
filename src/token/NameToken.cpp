@@ -1,11 +1,11 @@
 #include "token/NameToken.h"
 
-boost::shared_ptr<Token> NameToken::parse(std::fstream &fs) {
+boost::shared_ptr<Token> NameToken::parse(std::istream &is) {
   std::string text;
 
   int state = 0;
   while(true) {
-    char next = fs.get();
+    char next = is.get();
 
     switch(state) {
       case 0:
@@ -21,7 +21,7 @@ boost::shared_ptr<Token> NameToken::parse(std::fstream &fs) {
           state = 1;
           text += next;
         } else {
-          fs.putback(next);
+          is.putback(next);
           return boost::shared_ptr<Token>(new NameToken(text));
         }
         break;

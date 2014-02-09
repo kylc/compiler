@@ -1,7 +1,7 @@
 #ifndef _FLOAT_TOKEN_H_
 #define _FLOAT_TOKEN_H_
 
-#include <fstream>
+#include <istream>
 #include <boost/shared_ptr.hpp>
 
 #include "Token.h"
@@ -13,7 +13,7 @@ public:
   std::string getTagName() { return "FLOAT"; }
   float getValue() { return value; }
 
-  static boost::shared_ptr<Token> parse(std::fstream &fs);
+  static boost::shared_ptr<Token> parse(std::istream &is);
 
 private:
   float value;

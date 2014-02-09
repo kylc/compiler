@@ -1,7 +1,7 @@
 #include "token/ParenToken.h"
 
-boost::shared_ptr<Token> ParenToken::parse(std::fstream &fs) {
-  char next = fs.get();
+boost::shared_ptr<Token> ParenToken::parse(std::istream &is) {
+  char next = is.get();
   std::string text(1, next);
 
   boost::shared_ptr<Token> token = NULL;

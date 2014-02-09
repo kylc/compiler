@@ -1,7 +1,7 @@
 #ifndef _BINOP_TOKEN_H_
 #define _BINOP_TOKEN_H_
 
-#include <fstream>
+#include <istream>
 #include <boost/shared_ptr.hpp>
 
 #include "Token.h"
@@ -14,7 +14,7 @@ public:
   std::string getTagName() { return "BINOP"; }
   Types getType() { return type; }
 
-  static boost::shared_ptr<Token> parse(std::fstream &fs);
+  static boost::shared_ptr<Token> parse(std::istream &is);
 
 private:
   Types type;

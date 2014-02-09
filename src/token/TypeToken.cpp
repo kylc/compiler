@@ -1,11 +1,11 @@
 #include "token/TypeToken.h"
 
-boost::shared_ptr<Token> TypeToken::parse(std::fstream &fs) {
+boost::shared_ptr<Token> TypeToken::parse(std::istream &is) {
   std::string text;
 
   int state = 0;
   while(true) {
-    char next = fs.get();
+    char next = is.get();
     text += next;
 
     switch(state) {

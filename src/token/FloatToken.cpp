@@ -1,6 +1,6 @@
 #include "token/FloatToken.h"
 
-boost::shared_ptr<Token> FloatToken::parse(std::fstream &fs) {
+boost::shared_ptr<Token> FloatToken::parse(std::istream &is) {
   std::string text;
   bool positive = true;
   float value = 0;
@@ -8,7 +8,7 @@ boost::shared_ptr<Token> FloatToken::parse(std::fstream &fs) {
 
   int state = 0;
   while(true) {
-    char next = fs.get();
+    char next = is.get();
 
     switch(state) {
       case 0:
@@ -44,7 +44,7 @@ boost::shared_ptr<Token> FloatToken::parse(std::fstream &fs) {
           value += ((float) (next - '0')) / base;
           base *= 10;
         } else {
-          fs.putback(next);
+          is.putback(next);
           value = positive ? value : -value;
           return boost::shared_ptr<Token>(new FloatToken(text, value));
         }

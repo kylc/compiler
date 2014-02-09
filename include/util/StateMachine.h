@@ -4,7 +4,7 @@
 #include "State.h"
 #include "Transition.h"
 
-#include <iostream>
+#include <istream>
 #include <string>
 #include <vector>
 
