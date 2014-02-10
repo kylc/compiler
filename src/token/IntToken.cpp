@@ -1,6 +1,6 @@
 #include "token/IntToken.h"
 
-boost::shared_ptr<Token> IntToken::parse(std::istream &is) {
+boost::shared_ptr<Token> IntToken::parse(std::istream &is, SymbolTablePtr symbols) {
   std::string text;
   bool positive = true;
   int value = 0;

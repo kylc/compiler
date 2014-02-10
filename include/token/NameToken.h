@@ -12,7 +12,7 @@ public:
 
   std::string getTagName() { return "NAME"; }
 
-  static boost::shared_ptr<Token> parse(std::istream &is);
+  static boost::shared_ptr<Token> parse(std::istream &is, SymbolTablePtr symbols);
 };
 
 #endif

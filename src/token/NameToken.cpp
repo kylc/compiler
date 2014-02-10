@@ -1,6 +1,6 @@
 #include "token/NameToken.h"
 
-boost::shared_ptr<Token> NameToken::parse(std::istream &is) {
+boost::shared_ptr<Token> NameToken::parse(std::istream &is, SymbolTablePtr symbols) {
   std::string text;
 
   int state = 0;
@@ -22,7 +22,13 @@ boost::shared_ptr<Token> NameToken::parse(std::istream &is) {
           text += next;
         } else {
           is.putback(next);
-          return boost::shared_ptr<Token>(new NameToken(text));
+
+          boost::shared_ptr<Token> existing = (*symbols)[text];
+          if(!existing) {
+            (*symbols)[text] = boost::shared_ptr<Token>(new NameToken(text));
+          }
+
+          return (*symbols)[text];
         }
         break;
       case REJECT_STATE:

@@ -1,6 +1,6 @@
 #include "token/FloatToken.h"
 
-boost::shared_ptr<Token> FloatToken::parse(std::istream &is) {
+boost::shared_ptr<Token> FloatToken::parse(std::istream &is, SymbolTablePtr symbols) {
   std::string text;
   bool positive = true;
   float value = 0;

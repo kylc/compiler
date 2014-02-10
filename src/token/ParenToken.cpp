@@ -1,6 +1,6 @@
 #include "token/ParenToken.h"
 
-boost::shared_ptr<Token> ParenToken::parse(std::istream &is) {
+boost::shared_ptr<Token> ParenToken::parse(std::istream &is, SymbolTablePtr symbols) {
   char next = is.get();
   std::string text(1, next);
 

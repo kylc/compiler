@@ -1,8 +1,9 @@
 #ifndef _TOKENIZER_H_
 #define _TOKENIZER_H_
 
-#include <boost/shared_ptr.hpp>
 #include <istream>
+#include <unordered_map>
+#include <boost/shared_ptr.hpp>
 
 #include "Token.h"
 #include "ParenToken.h"
@@ -16,10 +17,10 @@
 
 class Tokenizer {
 public:
-  boost::shared_ptr<Token> next(std::istream &is);
+  boost::shared_ptr<Token> next(std::istream &is, SymbolTablePtr symbols);
 };
 
-typedef boost::shared_ptr<Token> (*TokenParsingFunc)(std::istream &is);
+typedef boost::shared_ptr<Token> (*TokenParsingFunc)(std::istream &is, SymbolTablePtr symbols);
 
 const TokenParsingFunc TOKEN_PARSING_FUNCS[] ={
   &ParenToken::parse,

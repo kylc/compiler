@@ -14,7 +14,7 @@ public:
   std::string getTagName() { return "BINOP"; }
   Types getType() { return type; }
 
-  static boost::shared_ptr<Token> parse(std::istream &is);
+  static boost::shared_ptr<Token> parse(std::istream &is, SymbolTablePtr symbols);
 
 private:
   Types type;

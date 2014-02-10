@@ -17,8 +17,8 @@ int main(int argc, char **argv) {
     return 1;
   }
 
+  SymbolTablePtr symbols(new SymbolTable());
   std::unordered_set<std::string> keywords({ "if", "while", "let", "stdout" });
-  std::unordered_set<std::string> symbols;
 
   Tokenizer tokenizer;
   while(fs.good()) {
@@ -30,19 +30,20 @@ int main(int argc, char **argv) {
     // Now that we've cleared whitespace, may be at EOF.
     if(!fs.good()) break;
 
-    boost::shared_ptr<Token> next = tokenizer.next(fs);
+    boost::shared_ptr<Token> next = tokenizer.next(fs, symbols);
     if(next) {
-      if(typeid(*next) == typeid(NameToken)) {
-        if(keywords.count(next->getText()) > 0) {
-          std::cout << "<KEYWORD, " << next->getText() << "> ";
-        } else {
-          symbols.emplace(next->getText());
-          std::cout << "<*" << next->getTagName() << ", " << next->getText() << "> ";
-        }
+      if(typeid(*next) == typeid(NameToken) && keywords.count(next->getText()) > 0) {
+        std::cout << "<KEYWORD, " << next->getText() << "> ";
       } else {
         std::cout << "<" << next->getTagName() << ", " << next->getText() << "> ";
       }
     }
+  }
+
+
+  std::cout << symbols->size() << std::endl;
+  for(std::pair<std::string, boost::shared_ptr<Token>> pair : *symbols) {
+    std::cout << pair.first << " -> " << pair.second << std::endl;
   }
 
   std::cout << std::endl;

@@ -1,6 +1,6 @@
 #include "token/BinopToken.h"
 
-boost::shared_ptr<Token> BinopToken::parse(std::istream &is) {
+boost::shared_ptr<Token> BinopToken::parse(std::istream &is, SymbolTablePtr symbols) {
   std::string text;
 
   int state = 0;

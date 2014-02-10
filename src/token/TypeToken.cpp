@@ -1,6 +1,6 @@
 #include "token/TypeToken.h"
 
-boost::shared_ptr<Token> TypeToken::parse(std::istream &is) {
+boost::shared_ptr<Token> TypeToken::parse(std::istream &is, SymbolTablePtr symbols) {
   std::string text;
 
   int state = 0;

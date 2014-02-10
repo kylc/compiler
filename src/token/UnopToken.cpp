@@ -1,6 +1,6 @@
 #include "token/UnopToken.h"
 
-boost::shared_ptr<Token> UnopToken::parse(std::istream &is) {
+boost::shared_ptr<Token> UnopToken::parse(std::istream &is, SymbolTablePtr symbols) {
   std::string text;
 
   int state = 0;

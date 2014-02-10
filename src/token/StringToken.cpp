@@ -2,7 +2,7 @@
 
 #include "util/StateMachineBuilder.h"
 
-boost::shared_ptr<Token> StringToken::parse(std::istream &is) {
+boost::shared_ptr<Token> StringToken::parse(std::istream &is, SymbolTablePtr symbols) {
   StateMachineBuilder b;
   // b.addState(0);
   b.addTransition('"', 0, 1);
