@@ -9,13 +9,13 @@ OBJS=$(subst .cpp,.o,$(SRCS))
 all: main
 
 main: $(OBJS)
-	$(CXX) $(CPPFLAGS) -o tokenizer $(OBJS)
+	$(CXX) $(CXXPFLAGS) -o tokenizer $(OBJS)
 
 depend: .depend
 
 .depend: $(SRCS)
 	rm -f ./.depend
-	$(CXX) $(CPPFLAGS) -MM $^>>./.depend;
+	$(CXX) $(CXXFLAGS) -MM $^>>./.depend;
 
 clean:
 	$(RM) $(OBJS)
