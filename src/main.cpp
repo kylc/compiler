@@ -18,6 +18,7 @@ int main(int argc, char **argv) {
   }
 
   std::unordered_set<std::string> keywords({ "if", "while", "let", "stdout" });
+  std::unordered_set<std::string> symbols;
 
   Tokenizer tokenizer;
   while(fs.good()) {
@@ -31,8 +32,13 @@ int main(int argc, char **argv) {
 
     boost::shared_ptr<Token> next = tokenizer.next(fs);
     if(next) {
-      if(typeid(*next) == typeid(NameToken) && keywords.count(next->getText()) > 0) {
-        std::cout << "<KEYWORD, " << next->getText() << "> ";
+      if(typeid(*next) == typeid(NameToken)) {
+        if(keywords.count(next->getText()) > 0) {
+          std::cout << "<KEYWORD, " << next->getText() << "> ";
+        } else {
+          symbols.emplace(next->getText());
+          std::cout << "<*" << next->getTagName() << ", " << next->getText() << "> ";
+        }
       } else {
         std::cout << "<" << next->getTagName() << ", " << next->getText() << "> ";
       }
