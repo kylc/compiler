@@ -1,6 +1,6 @@
 #include "tree/VarNode.h"
 
-void VarNode::printNode() {
+void VarNode::print() {
   std::cout << "VarNode" << std::endl;
 }
 

@@ -4,7 +4,7 @@
 #include "tree/Node.h"
 
 class ExprNode : public Node {
-  virtual void printNode();
+  virtual void print();
   virtual std::string emit();
 };
 

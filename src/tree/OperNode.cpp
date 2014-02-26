@@ -1,6 +1,6 @@
 #include "tree/OperNode.h"
 
-void OperNode::printNode() {
+void OperNode::print() {
   std::cout << "OperNode" << std::endl;
 }
 

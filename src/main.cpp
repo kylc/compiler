@@ -5,6 +5,7 @@
 
 #include "token/Tokenizer.h"
 #include "parse/Parser.h"
+#include "tree/Node.h"
 
 int main(int argc, char **argv) {
   if(argc < 2) {
@@ -21,7 +22,9 @@ int main(int argc, char **argv) {
 
     Tokenizer tokenizer;
     Parser parser(fs, tokenizer);
-    parser.parse().print(0);
+
+    Node root = parser.parse();
+    root.printTree();
 
     fs.close();
   }

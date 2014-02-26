@@ -1,6 +1,6 @@
 #include "tree/ExprNode.h"
 
-void ExprNode::printNode() {
+void ExprNode::print() {
   std::cout << "ExprNode" << std::endl;
 }
 

@@ -1,6 +1,6 @@
 #include "tree/IfNode.h"
 
-void IfNode::printNode() {
+void IfNode::print() {
   std::cout << "IfNode" << std::endl;
 }
 

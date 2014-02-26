@@ -1,6 +1,6 @@
 #include "tree/LetNode.h"
 
-void LetNode::printNode() {
+void LetNode::print() {
   std::cout << "LetNode" << std::endl;
 }
 

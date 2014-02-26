@@ -4,7 +4,7 @@
 #include "tree/StmtNode.h"
 
 class IfNode : public StmtNode {
-  virtual void printNode();
+  virtual void print();
   virtual std::string emit();
 };
 

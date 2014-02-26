@@ -1,6 +1,6 @@
 #include "tree/StmtNode.h"
 
-void StmtNode::printNode() {
+void StmtNode::print() {
   std::cout << "StmtNode" << std::endl;
 }
 

@@ -1,6 +1,6 @@
 #include "tree/WhileNode.h"
 
-void WhileNode::printNode() {
+void WhileNode::print() {
   std::cout << "WhileNode" << std::endl;
 }
 

@@ -7,39 +7,15 @@
 
 class Node {
 public:
-  Node() { }
+  Node();
 
-  void addChild(Node *node) {
-    children.push_back(node);
-  }
+  void addChild(Node *node);
 
-  void print(int indent) {
-    for(int i = 0; i < indent; i++) {
-      std::cout << " ";
-    }
+  void printTree(int indent = 0);
+  virtual void print();
 
-    printNode();
-
-    for(int i = 0; i < children.size(); i++) {
-      children[i]->print(indent + 1);
-    }
-  }
-
-  virtual void printNode() {
-    std::cout << "Node" << std::endl;
-  }
-
-  void emitTree() {
-    for(int i = 0; i < children.size(); i++) {
-      children[i]->emit();
-    }
-
-    emit();
-  }
-
-  virtual std::string emit() {
-    return "NOTHING";
-  }
+  void emitTree();
+  virtual std::string emit();
 
 protected:
   std::vector<Node*> children;

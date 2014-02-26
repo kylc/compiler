@@ -4,7 +4,7 @@
 #include "tree/StmtNode.h"
 
 class LetNode : public StmtNode {
-  virtual void printNode();
+  virtual void print();
   virtual std::string emit();
 };
 
