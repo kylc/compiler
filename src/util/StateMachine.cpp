@@ -3,8 +3,7 @@
 #include <iostream>
 
 StateMachine::MachineState StateMachine::accept(char input) {
-  for(size_t i = 0; i < transitions.size(); i++) {
-    Transition t = transitions[i];
+  for(Transition t : transitions) {
     if(t.getFromState() == getCurrent().getId()) {
       if(input == t.getAccept()) {
         // TODO: Don't subtract 1, store start in list

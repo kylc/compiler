@@ -11,6 +11,7 @@ public:
   StringToken(std::string value) : Token(value) {}
 
   std::string getTagName() { return "STRING"; }
+  unsigned int getType() { return -1; }
   std::string getValue() { return value; }
 
   static boost::shared_ptr<Token> parse(std::istream &is, SymbolTablePtr symbols);

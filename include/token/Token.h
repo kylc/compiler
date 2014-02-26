@@ -11,6 +11,7 @@ public:
 
   std::string getText() { return value; }
 
+  virtual unsigned int getType() = 0;
   virtual std::string getTagName() = 0;
 
 private:

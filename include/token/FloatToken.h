@@ -11,6 +11,7 @@ public:
   FloatToken(std::string text, float value) : Token(text), value(value) {}
 
   std::string getTagName() { return "FLOAT"; }
+  unsigned int getType() { return -1; }
   float getValue() { return value; }
 
   static boost::shared_ptr<Token> parse(std::istream &is, SymbolTablePtr symbols);

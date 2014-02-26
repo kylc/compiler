@@ -12,6 +12,7 @@ public:
   TypeToken(std::string text, Types value) : Token(text), value(value)  {}
 
   std::string getTagName() { return "TYPE"; }
+  unsigned int getType() { return -1; }
   Types getValue() { return value; }
 
   static boost::shared_ptr<Token> parse(std::istream &is, SymbolTablePtr symbols);

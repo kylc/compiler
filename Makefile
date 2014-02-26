@@ -9,7 +9,7 @@ OBJS=$(subst .cpp,.o,$(SRCS))
 all: main
 
 main: $(OBJS)
-	$(CXX) $(CXXPFLAGS) -o tokenizer $(OBJS)
+	$(CXX) $(CXXPFLAGS) -o compiler $(OBJS)
 
 depend: .depend
 
@@ -22,5 +22,8 @@ clean:
 
 dist-clean: clean
 	$(RM) *~ .dependtool
+
+proftest.out: main
+	./compiler proftest > proftest.out
 
 include .depend

@@ -12,7 +12,7 @@ public:
   UnopToken(std::string text, Types type) : Token(text), type(type) {}
 
   std::string getTagName() { return "UNOP"; }
-  Types getType() { return type; }
+  unsigned int getType() { return type; }
 
   static boost::shared_ptr<Token> parse(std::istream &is, SymbolTablePtr symbols);
 

@@ -6,6 +6,7 @@
 #include <boost/shared_ptr.hpp>
 
 #include "Token.h"
+#include "AssignToken.h"
 #include "ParenToken.h"
 #include "StringToken.h"
 #include "FloatToken.h"
@@ -18,11 +19,13 @@
 class Tokenizer {
 public:
   boost::shared_ptr<Token> next(std::istream &is, SymbolTablePtr symbols);
+  boost::shared_ptr<Token> peek(std::istream &is, SymbolTablePtr symbols);
 };
 
 typedef boost::shared_ptr<Token> (*TokenParsingFunc)(std::istream &is, SymbolTablePtr symbols);
 
 const TokenParsingFunc TOKEN_PARSING_FUNCS[] ={
+  &AssignToken::parse,
   &ParenToken::parse,
   &StringToken::parse,
   &UnopToken::parse,

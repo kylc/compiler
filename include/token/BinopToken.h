@@ -8,11 +8,11 @@
 
 class BinopToken : public Token {
 public:
-  enum Types { Plus, Minus, Times, Divide, Modulus, Power, Or, And };
+  enum Types { Plus, Minus, Times, Divide, Modulus, Power, Equal, Or, And, Neq, Less, Greater, Leq, Geq };
   BinopToken(std::string text, Types type) : Token(text), type(type) {}
 
   std::string getTagName() { return "BINOP"; }
-  Types getType() { return type; }
+  unsigned int getType() { return type; }
 
   static boost::shared_ptr<Token> parse(std::istream &is, SymbolTablePtr symbols);
 
