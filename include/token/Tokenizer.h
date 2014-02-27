@@ -28,12 +28,12 @@ const TokenParsingFunc TOKEN_PARSING_FUNCS[] ={
   &AssignToken::parse,
   &ParenToken::parse,
   &StringToken::parse,
+  &FloatToken::parse,
+  &IntToken::parse,
   &UnopToken::parse,
   &BinopToken::parse,
   &TypeToken::parse,
-  &NameToken::parse,
-  &FloatToken::parse,
-  &IntToken::parse
+  &NameToken::parse
 };
 
 const size_t TOKEN_PARSING_FUNCS_LENGTH = sizeof(TOKEN_PARSING_FUNCS) /
