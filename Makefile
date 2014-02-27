@@ -24,6 +24,6 @@ dist-clean: clean
 	$(RM) *~ .dependtool
 
 proftest.out: main
-	./compiler proftest > proftest.out
+	./compiler proftest.in > proftest.out
 
 include .depend
