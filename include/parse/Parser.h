@@ -12,12 +12,17 @@
 class Parser {
 public:
   Parser(std::istream &stream, Tokenizer tokenizer);
-  Node parse();
+  Node *parse();
 private:
-  bool peek(const std::type_info &type);
-  bool peek(const std::type_info &type, unsigned int subtype);
-  boost::shared_ptr<Token> expect(const std::type_info &type);
-  boost::shared_ptr<Token> expect(const std::type_info &type, unsigned int subtype);
+  template<typename X>
+  bool peek();
+  template<typename X>
+  bool peek(unsigned int subtype);
+
+  template<typename X>
+  boost::shared_ptr<X> expect();
+  template<typename X>
+  boost::shared_ptr<X> expect(unsigned int subtype);
 
   void T(Node &parent);
   void S(Node &parent);

@@ -23,14 +23,23 @@ void Node::print() {
   std::cout << "Node" << std::endl;
 }
 
-void Node::emitTree() {
+std::string Node::emitTree() {
+  std::string out = "";
+
   for(Node *child : children) {
-    child->emit();
+    out += child->emitTree();
   }
 
-  emit();
+  out += emit() + " ";
+
+  return out;
 }
 
 std::string Node::emit() {
-  return "NOTHING";
+  return "";
+}
+
+Type Node::getType() {
+  std::cerr << "FAIL!" << std::endl;
+  exit(0);
 }

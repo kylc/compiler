@@ -7,6 +7,7 @@
 
 #include "Token.h"
 #include "AssignToken.h"
+#include "BoolToken.h"
 #include "ParenToken.h"
 #include "StringToken.h"
 #include "FloatToken.h"
@@ -32,6 +33,7 @@ const TokenParsingFunc TOKEN_PARSING_FUNCS[] ={
   &IntToken::parse,
   &UnopToken::parse,
   &BinopToken::parse,
+  &BoolToken::parse,
   &TypeToken::parse,
   &NameToken::parse
 };

@@ -5,5 +5,13 @@ void PrintNode::print() {
 }
 
 std::string PrintNode::emit() {
-  return "";
+  switch(children[0]->getType()) {
+    case Type::Bool:
+    case Type::Int:
+      return ".s";
+    case Type::Float:
+      return "f.s";
+    case Type::String:
+      return "2dup type";
+  }
 }

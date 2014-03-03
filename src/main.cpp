@@ -1,7 +1,5 @@
 #include <fstream>
 #include <iostream>
-#include <string>
-#include <unordered_set>
 
 #include "token/Tokenizer.h"
 #include "parse/Parser.h"
@@ -23,8 +21,10 @@ int main(int argc, char **argv) {
     Tokenizer tokenizer;
     Parser parser(fs, tokenizer);
 
-    Node root = parser.parse();
-    root.printTree();
+    Node *root = parser.parse();
+    root->printTree();
+
+    std::cout << root->emitTree() << std::endl;
 
     fs.close();
   }

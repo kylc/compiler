@@ -70,6 +70,7 @@ boost::shared_ptr<Token> BinopToken::parse(std::istream &is, SymbolTablePtr symb
         if(next == '=') {
           return boost::shared_ptr<Token>(new BinopToken(text, BinopToken::Leq));
         } else {
+          text.pop_back();
           is.putback(next);
           return boost::shared_ptr<Token>(new BinopToken(text, BinopToken::Less));
         }
@@ -78,6 +79,7 @@ boost::shared_ptr<Token> BinopToken::parse(std::istream &is, SymbolTablePtr symb
         if(next == '=') {
           return boost::shared_ptr<Token>(new BinopToken(text, BinopToken::Geq));
         } else {
+          text.pop_back();
           is.putback(next);
           return boost::shared_ptr<Token>(new BinopToken(text, BinopToken::Greater));
         }

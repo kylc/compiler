@@ -1,9 +1,9 @@
-#ifndef _IF_NODE_H
-#define _IF_NODE_H
+#ifndef _ROOT_NODE_H
+#define _ROOT_NODE_H
 
-#include "tree/StmtNode.h"
+#include "tree/Node.h"
 
-class IfNode : public StmtNode {
+class RootNode : public Node {
   virtual void print();
   virtual std::string emitTree();
   virtual std::string emit();

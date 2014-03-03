@@ -5,6 +5,8 @@
 #include <string>
 #include <vector>
 
+#include "tree/Type.h"
+
 class Node {
 public:
   Node();
@@ -14,8 +16,10 @@ public:
   void printTree(int indent = 0);
   virtual void print();
 
-  void emitTree();
+  virtual std::string emitTree();
   virtual std::string emit();
+
+  virtual Type getType();
 
 protected:
   std::vector<Node*> children;
