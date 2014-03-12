@@ -3,6 +3,7 @@
 #include <exception>
 #include <boost/log/trivial.hpp>
 
+#include "tree/AssignNode.h"
 #include "tree/BinopNode.h"
 #include "tree/ConstNode.h"
 #include "tree/ExprNode.h"
@@ -184,17 +185,20 @@ void Parser::oper(Node &parent) {
   
   // name
   else if(peek<NameToken>()) {
-    expect<NameToken>();
+    boost::shared_ptr<NameToken> c = expect<NameToken>();
+
+    VarAccessNode *node = new VarAccessNode(c);
+    parent.addChild(node);
+
     return;
   }
 
   else if(lastToken->getText() == "[") {
     // assign
     if(peek<AssignToken>()) {
-      OperNode *node = new OperNode();
-
       expect<AssignToken>();
-      expect<NameToken>();
+
+      AssignNode *node = new AssignNode(expect<NameToken>());
       oper(*node);
 
       parent.addChild(node);
@@ -323,12 +327,10 @@ void Parser::exprlist(Node &parent) {
 void Parser::varlist(Node &parent) {
   BOOST_LOG_TRIVIAL(trace) << "varlist";
 
-  VarNode *first = new VarNode();
   expect<ParenToken>(ParenToken::Left);
-  expect<NameToken>();
-  expect<TypeToken>();
-  expect<ParenToken>(ParenToken::Right);
+  VarNode *first = new VarNode(expect<NameToken>(), expect<TypeToken>());
   parent.addChild(first);
+  expect<ParenToken>(ParenToken::Right);
 
   if(peek<ParenToken>(ParenToken::Left)) {
     varlist(parent);
@@ -337,9 +339,6 @@ void Parser::varlist(Node &parent) {
 
 template<typename X>
 bool Parser::peek() {
-  // std::cout << "Peeking: " << type.name() << std::endl;
-  boost::shared_ptr<Token> next = tokenizer.peek(stream, symbols);
-
   const std::type_info &type = typeid(X);
   BOOST_LOG_TRIVIAL(trace) << "Peeking: " << type.name();
 

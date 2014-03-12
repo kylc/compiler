@@ -5,7 +5,7 @@ void RootNode::print() {
 }
 
 std::string RootNode::emitTree() {
-  std::string out = ": root ";
+  std::string out = ": compiled-main ";
 
   for(Node *child : children) {
     out += child->emitTree();
@@ -13,7 +13,7 @@ std::string RootNode::emitTree() {
 
   out += emit() + " ";
 
-  return out + "; root";
+  return out + "; compiled-main ";
 }
 
 std::string RootNode::emit() {

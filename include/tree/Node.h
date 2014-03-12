@@ -5,7 +5,10 @@
 #include <string>
 #include <vector>
 
+#include <boost/shared_ptr.hpp>
+
 #include "tree/Type.h"
+#include "tree/VariableMap.h"
 
 class Node {
 public:
@@ -23,6 +26,7 @@ public:
 
 protected:
   std::vector<Node*> children;
+  boost::shared_ptr<VariableMap> variables;
 };
 
 #endif

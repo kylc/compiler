@@ -5,6 +5,7 @@
 
 class WhileNode : public StmtNode {
   virtual void print();
+  virtual std::string emitTree();
   virtual std::string emit();
 };
 

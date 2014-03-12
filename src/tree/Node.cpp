@@ -1,10 +1,14 @@
 #include "tree/Node.h"
 
+#include "tree/VariableMap.h"
 
-Node::Node() { }
+Node::Node() {
+  variables = boost::shared_ptr<VariableMap>(new VariableMap);
+}
 
 void Node::addChild(Node *node) {
   children.push_back(node);
+  node->variables->setParent(variables);
 }
 
 void Node::printTree(int indent) {

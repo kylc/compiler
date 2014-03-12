@@ -5,7 +5,7 @@
 
 class LetNode : public StmtNode {
   virtual void print();
-  virtual std::string emit();
+  virtual std::string emitTree();
 };
 
 #endif
