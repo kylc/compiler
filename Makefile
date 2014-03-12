@@ -10,7 +10,7 @@ OBJS=$(subst .cpp,.o,$(SRCS))
 all: main
 
 main: $(OBJS)
-	$(CXX) $(CXXPFLAGS) -o compiler $(OBJS)
+	$(CXX) $(CXXFLAGS) -o compiler $(OBJS) $(LDFLAGS)
 
 depend: .depend
 
