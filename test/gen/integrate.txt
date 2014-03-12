@@ -1,0 +1,12 @@
+[
+  [let [[n int]] [:= n 1000]
+  [let [[a float] [b float] [area float]]] [:= a 0.0] [:= b 1.0] [:= area 0.0]]
+  [let [[width float] [x float]]] [:= width [/ [- b a] n]] [:= x a]
+
+  [while [< x b]
+    [:= area [+ area [* width [* x x]]]]
+    [:= x [+ x width]]
+  ]
+
+  [stdout area]
+]

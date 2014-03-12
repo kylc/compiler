@@ -1,0 +1,8 @@
+[
+  [let [[x int] [y int]]]
+  [:= y 10] [:= x y]
+  [if [< x 5]
+    [stdout "Hello"]
+    [stdout "Goodbye"]
+  ]
+]
