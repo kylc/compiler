@@ -1,5 +1,5 @@
-#ifndef _ASSIGN_NODE_H
-#define _ASSIGN_NODE_H
+#ifndef _ASSIGN_NODE_H_
+#define _ASSIGN_NODE_H_
 
 #include <map>
 #include <boost/shared_ptr.hpp>

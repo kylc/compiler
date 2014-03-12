@@ -1,5 +1,5 @@
-#ifndef _TYPE_H
-#define _TYPE_H
+#ifndef _TYPE_H_
+#define _TYPE_H_
 
 enum Type {
   Bool,

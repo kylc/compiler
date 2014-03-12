@@ -1,5 +1,5 @@
-#ifndef _ROOT_NODE_H
-#define _ROOT_NODE_H
+#ifndef _ROOT_NODE_H_
+#define _ROOT_NODE_H_
 
 #include "tree/Node.h"
 

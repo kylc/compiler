@@ -1,5 +1,5 @@
-#ifndef _UNOP_NODE_H
-#define _UNOP_NODE_H
+#ifndef _UNOP_NODE_H_
+#define _UNOP_NODE_H_
 
 #include <map>
 #include <boost/shared_ptr.hpp>

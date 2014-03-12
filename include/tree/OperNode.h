@@ -1,5 +1,5 @@
-#ifndef _OPER_NODE_H
-#define _OPER_NODE_H
+#ifndef _OPER_NODE_H_
+#define _OPER_NODE_H_
 
 #include "tree/Node.h"
 

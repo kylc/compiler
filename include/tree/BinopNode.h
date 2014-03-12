@@ -1,5 +1,5 @@
-#ifndef _BINOP_NODE_H
-#define _BINOP_NODE_H
+#ifndef _BINOP_NODE_H_
+#define _BINOP_NODE_H_
 
 #include <map>
 #include <boost/shared_ptr.hpp>

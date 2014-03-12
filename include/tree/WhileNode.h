@@ -1,5 +1,5 @@
-#ifndef _WHILE_NODE_H
-#define _WHILE_NODE_H
+#ifndef _WHILE_NODE_H_
+#define _WHILE_NODE_H_
 
 #include "tree/StmtNode.h"
 

@@ -1,5 +1,5 @@
-#ifndef _CONST_NODE_H
-#define _CONST_NODE_H
+#ifndef _CONST_NODE_H_
+#define _CONST_NODE_H_
 
 #include <boost/shared_ptr.hpp>
 

@@ -1,5 +1,5 @@
-#ifndef _VAR_ACCESS_NODE_H
-#define _VAR_ACCESS_NODE_H
+#ifndef _VAR_ACCESS_NODE_H_
+#define _VAR_ACCESS_NODE_H_
 
 #include <boost/shared_ptr.hpp>
 

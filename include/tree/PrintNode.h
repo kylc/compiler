@@ -1,5 +1,5 @@
-#ifndef _PRINT_NODE_H
-#define _PRINT_NODE_H
+#ifndef _PRINT_NODE_H_
+#define _PRINT_NODE_H_
 
 #include "tree/StmtNode.h"
 

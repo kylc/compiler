@@ -1,5 +1,5 @@
-#ifndef _VAR_NODE_H
-#define _VAR_NODE_H
+#ifndef _VAR_NODE_H_
+#define _VAR_NODE_H_
 
 #include "tree/Node.h"
 
