@@ -1,9 +1,5 @@
 #include "tree/UnopNode.h"
 
-#include <sstream>
-
-#include "util/Util.h"
-
 std::map<std::string, std::string> UnopNode::UNOP_TRANSLATION_TABLE = {
   {"not", "invert"},
   {"sin", "sin"},

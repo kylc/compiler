@@ -1,3 +1,5 @@
+#define BOOST_ALL_DYN_LINK
+
 #include <fstream>
 #include <iostream>
 
@@ -14,8 +16,8 @@ int main(int argc, char **argv) {
     std::fstream fs(argv[i], std::fstream::in);
 
     if(!fs) {
-      std::cerr << "Unable to open file" << std::endl;
-      return 1;
+      BOOST_LOG_TRIVIAL(fatal) << "Unable to open file";
+      return EXIT_FAILURE;
     }
 
     Tokenizer tokenizer;
@@ -29,6 +31,6 @@ int main(int argc, char **argv) {
     fs.close();
   }
 
-  return 0;
+  return EXIT_SUCCESS;
 }
 

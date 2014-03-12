@@ -1,5 +1,8 @@
 #include "parse/Parser.h"
 
+#include <exception>
+#include <boost/log/trivial.hpp>
+
 #include "tree/BinopNode.h"
 #include "tree/ConstNode.h"
 #include "tree/ExprNode.h"
@@ -10,9 +13,9 @@
 #include "tree/RootNode.h"
 #include "tree/StmtNode.h"
 #include "tree/UnopNode.h"
+#include "tree/VarAccessNode.h"
 #include "tree/VarNode.h"
 #include "tree/WhileNode.h"
-#include "util/Util.h"
 
 Parser::Parser(std::istream &stream, Tokenizer tokenizer) : stream(stream), tokenizer(tokenizer), symbols(boost::shared_ptr<SymbolTable>(new SymbolTable())) {
 }
@@ -26,7 +29,7 @@ Node *Parser::parse() {
 }
 
 void Parser::T(Node &parent) {
-  std::cout << "T" << std::endl;
+  BOOST_LOG_TRIVIAL(trace) << "T";
 
   expect<ParenToken>(ParenToken::Left);
   S(parent);
@@ -34,7 +37,7 @@ void Parser::T(Node &parent) {
 }
 
 void Parser::S(Node &parent) {
-  std::cout << "S" << std::endl;
+  BOOST_LOG_TRIVIAL(trace) << "S";
 
   boost::shared_ptr<Token> p = tokenizer.peek(stream, symbols);
   if(peek<AssignToken>() ||
@@ -105,7 +108,7 @@ void Parser::S(Node &parent) {
 }
 
 void Parser::expr(Node &parent) {
-  std::cout << "expr" << std::endl;
+  BOOST_LOG_TRIVIAL(trace) << "expr";
 
   bool consumeEndParen = false;
   if(peek<ParenToken>(ParenToken::Left)) {
@@ -114,7 +117,6 @@ void Parser::expr(Node &parent) {
   }
   
   boost::shared_ptr<Token> p = tokenizer.peek(stream, symbols);
-  std::cout << "Text: '" << p->getText() << "'" << std::endl;
   if(p->getText() == "if" ||
       p->getText() == "while" ||
       p->getText() == "stdout" ||
@@ -141,7 +143,7 @@ void Parser::expr(Node &parent) {
 }
 
 void Parser::oper(Node &parent) {
-  std::cout << "oper" << std::endl;
+  BOOST_LOG_TRIVIAL(trace) << "oper";
 
   bool consumeEndParen = false;
   if(peek<ParenToken>(ParenToken::Left)) {
@@ -232,13 +234,13 @@ void Parser::oper(Node &parent) {
 }
 
 void Parser::stmts(Node &parent) {
-  std::cout << "stmts" << std::endl;
+  BOOST_LOG_TRIVIAL(trace) << "stmts";
 
   boost::shared_ptr<NameToken> name = expect<NameToken>();
 
   // ifstmt
   if(name->getText() == "if") {
-    std::cout << "if" << std::endl;
+    BOOST_LOG_TRIVIAL(trace) << "if";
 
     IfNode *node = new IfNode();
     expr(*node);
@@ -251,7 +253,7 @@ void Parser::stmts(Node &parent) {
 
   // whilestmt
   if(name->getText() == "while") {
-    std::cout << "while" << std::endl;
+    BOOST_LOG_TRIVIAL(trace) << "while";
 
     WhileNode *node = new WhileNode();
     expr(*node);
@@ -263,7 +265,7 @@ void Parser::stmts(Node &parent) {
 
   // letstmt
   if(name->getText() == "let") {
-    std::cout << "let" << std::endl;
+    BOOST_LOG_TRIVIAL(trace) << "let";
 
     LetNode *node = new LetNode();
     expect<ParenToken>(ParenToken::Left);
@@ -276,7 +278,8 @@ void Parser::stmts(Node &parent) {
 
   // printstmt
   if(name->getText() == "stdout") {
-    std::cout << "stdout" << std::endl;
+    BOOST_LOG_TRIVIAL(trace) << "stdout";
+
     PrintNode *node = new PrintNode();
     oper(*node);
     parent.addChild(node);
@@ -288,18 +291,27 @@ void Parser::stmts(Node &parent) {
 }
 
 void Parser::exprlist(Node &parent) {
-  std::cout << "exprlist" << std::endl;
+  BOOST_LOG_TRIVIAL(trace) << "exprlist";
 
   ExprNode *first = new ExprNode();
   expr(*first);
   parent.addChild(first);
 
-  while(peek<BinopToken>() ||
-     peek<UnopToken>() ||
-     peek<StringToken>() ||
-     peek<IntToken>() ||
-     peek<FloatToken>() ||
-     peek<NameToken>()) {
+  boost::shared_ptr<Token> p = tokenizer.peek(stream, symbols);
+  while(peek<AssignToken>() ||
+      peek<BinopToken>() ||
+      peek<UnopToken>() ||
+      peek<NameToken>() ||
+      peek<IntToken>() ||
+      peek<FloatToken>() ||
+      peek<StringToken>() ||
+      peek<BoolToken>() ||
+      peek<ParenToken>(ParenToken::Left) |
+      p->getText() == "if" ||
+      p->getText() == "while" ||
+      p->getText() == "stdout" ||
+      p->getText() == "let") {
+  BOOST_LOG_TRIVIAL(trace) << "exprlister";
     ExprNode *next = new ExprNode();
     expr(*next);
     parent.addChild(next);
@@ -309,7 +321,7 @@ void Parser::exprlist(Node &parent) {
 }
 
 void Parser::varlist(Node &parent) {
-  std::cout << "varlist" << std::endl;
+  BOOST_LOG_TRIVIAL(trace) << "varlist";
 
   VarNode *first = new VarNode();
   expect<ParenToken>(ParenToken::Left);
@@ -329,6 +341,9 @@ bool Parser::peek() {
   boost::shared_ptr<Token> next = tokenizer.peek(stream, symbols);
 
   const std::type_info &type = typeid(X);
+  BOOST_LOG_TRIVIAL(trace) << "Peeking: " << type.name();
+
+  boost::shared_ptr<Token> next = tokenizer.peek(stream, symbols);
   if(typeid(*next) != type) {
     return false;
   }
@@ -337,10 +352,11 @@ bool Parser::peek() {
 
 template<typename X>
 bool Parser::peek(unsigned int subtype) {
-  // std::cout << "Peeking: " << type.name() << std::endl;
+  const std::type_info &type = typeid(X);
+  BOOST_LOG_TRIVIAL(trace) << "Peeking: " << type.name();
+
   boost::shared_ptr<Token> next = tokenizer.peek(stream, symbols);
 
-  const std::type_info &type = typeid(X);
   if(typeid(*next) != type || next->getType() != subtype) {
     return false;
   }
@@ -353,10 +369,13 @@ boost::shared_ptr<X> Parser::expect() {
   std::string text = lastToken == NULL ? "NULL" : lastToken->getText();
 
   const std::type_info &type = typeid(X);
-  std::cout << "Consuming: " << type.name() << " " << text << std::endl;
+  BOOST_LOG_TRIVIAL(trace) << "Consuming: " << type.name() << " " << text;
+
   if(lastToken == NULL || typeid(*lastToken) != type) {
     std::string got = lastToken == NULL ? "NULL" : typeid(*lastToken).name();
-    // fail("Expected '" + type.name() + "' got '" + got + "'");
+
+    BOOST_LOG_TRIVIAL(error) << "Expected '" << type.name() << "' but got '" << got << "'";
+    throw std::runtime_error("Unexpected token");
   }
 
   return boost::static_pointer_cast<X>(lastToken);
@@ -368,11 +387,18 @@ boost::shared_ptr<X> Parser::expect(unsigned int subtype) {
   std::string text = lastToken == NULL ? "NULL" : lastToken->getText();
 
   const std::type_info &type = typeid(X);
-  std::cout << "Consuming: " << type.name() << " " << text << std::endl;
+  BOOST_LOG_TRIVIAL(trace) << "Consuming: " << type.name() << " " << text;
+
   if(lastToken == NULL || typeid(*lastToken) != type || lastToken->getType() != subtype) {
     std::string got = lastToken == NULL ? "NULL" : typeid(*lastToken).name();
-    // fail("Expected '" + type.name() + "' " + subtype + " got '" + got + "' " + lastToken->getType());
+
+    BOOST_LOG_TRIVIAL(error) << "Expected '" << type.name() << "' but got '" << got << "'";
+    throw std::runtime_error("Unexpected token");
   }
 
   return boost::static_pointer_cast<X>(lastToken);
+}
+
+void Parser::fail(std::string str) {
+  throw std::runtime_error(str);
 }

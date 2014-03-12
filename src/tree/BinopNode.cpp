@@ -1,8 +1,7 @@
 #include "tree/BinopNode.h"
 
 #include <sstream>
-
-#include "util/Util.h"
+#include <boost/log/trivial.hpp>
 
 std::map<std::string, std::string> BinopNode::BINOP_TRANSLATION_TABLE = {
   {"+", "+"},
@@ -29,7 +28,7 @@ BinopNode::BinopNode(boost::shared_ptr<BinopToken> token) : token(token) {
 }
 
 void BinopNode::print() {
-  std::cout << "BinopNode (" << token->getText() << ", " << getType() << ")" << std::endl;
+  std::cout << "BinopNode (" << token->getText() << ")" << std::endl;
 }
 
 std::string BinopNode::emitTree() {
@@ -54,10 +53,7 @@ std::string BinopNode::emit() {
     // Handle corner-case of int->float upcast
     if((children[0]->getType() != Type::Int && children[0]->getType() != Type::Float) ||
        (children[1]->getType() != Type::Int && children[1]->getType() != Type::Float)) {
-      std::stringstream ss;
-      ss << "Invalid type comparison on binop ";
-      ss << token->getText();
-      warn(ss.str());
+      BOOST_LOG_TRIVIAL(warning) << "Invalid type comparison on binop " << token->getText();
     }
   }
 
@@ -70,6 +66,8 @@ std::string BinopNode::emit() {
     case Type::String:
       return BINOP_STRING_TRANSLATION_TABLE[token->getText()];
   }
+
+  throw std::runtime_error("Invalid type on Binop");
 }
 
 Type BinopNode::getType() {
@@ -104,5 +102,5 @@ Type BinopNode::getMaxType() {
     return Type::String;
   }
 
-  fail("Binop: Invalid types");
+  throw std::runtime_error("Invalid types");
 }

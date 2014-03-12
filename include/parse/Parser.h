@@ -32,6 +32,8 @@ private:
   void exprlist(Node &parent);
   void varlist(Node &parent);
 
+  void fail(std::string str);
+
   SymbolTablePtr symbols;
   std::istream &stream;
   Tokenizer tokenizer;
