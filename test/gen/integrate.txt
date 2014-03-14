@@ -4,7 +4,7 @@
   [let [[width float] [x float]]] [:= width [/ [- b a] n]] [:= x a]
 
   [while [< x b]
-    [:= area [+ area [* width [* x x]]]]
+    [:= area [+ area [* width [^ x 2]]]]
     [:= x [+ x width]]
   ]
 
