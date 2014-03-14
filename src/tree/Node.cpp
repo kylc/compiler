@@ -11,7 +11,7 @@ void Node::addChild(Node *node) {
   node->variables->setParent(variables);
 }
 
-void Node::printTree(int indent) {
+void Node::printTree(unsigned int indent) {
   for(unsigned int i = 0; i < indent; i++) {
     std::cout << " ";
   }

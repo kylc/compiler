@@ -16,7 +16,7 @@ public:
 
   void addChild(Node *node);
 
-  void printTree(int indent = 0);
+  void printTree(unsigned int indent = 0);
   virtual void print();
 
   virtual std::string emitTree();
