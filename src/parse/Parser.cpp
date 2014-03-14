@@ -209,7 +209,11 @@ void Parser::oper(Node &parent) {
       BinopNode *node = new BinopNode(expect<BinopToken>());
 
       oper(*node);
-      oper(*node);
+
+      // If we don't see another oper, then this must be the "-" corner-case.
+      if(!peek<ParenToken>(ParenToken::Right)) {
+        oper(*node);
+      }
 
       parent.addChild(node);
     }

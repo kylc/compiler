@@ -2,7 +2,6 @@
 
 boost::shared_ptr<Token> FloatToken::parse(std::istream &is, SymbolTablePtr symbols) {
   std::string text;
-  bool positive = true;
   float value = 0;
   int base = 10;
   int power = 0;
@@ -14,13 +13,7 @@ boost::shared_ptr<Token> FloatToken::parse(std::istream &is, SymbolTablePtr symb
 
     switch(state) {
       case 0:
-        if(next == '+') {
-          positive = true;
-          text += next;
-        } else if(next == '-') {
-          positive = false;
-          text += next;
-        } else if(std::isdigit(next)) {
+        if(std::isdigit(next)) {
           value = next - '0';
           text += next;
           state = 1;
@@ -53,7 +46,6 @@ boost::shared_ptr<Token> FloatToken::parse(std::istream &is, SymbolTablePtr symb
           state = 3;
         } else {
           is.putback(next);
-          value = positive ? value : -value;
           return boost::shared_ptr<Token>(new FloatToken(text, value));
         }
         break;

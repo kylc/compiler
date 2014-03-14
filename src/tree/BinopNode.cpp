@@ -32,6 +32,11 @@ void BinopNode::print() {
 }
 
 std::string BinopNode::emitTree() {
+  // Handle "-" Binop -> Unop
+  if(children.size() == 1 && token->getType() == BinopToken::Minus) {
+    return children[0]->emitTree() + " negate ";
+  }
+
   std::string l = children[0]->emitTree();
   std::string r = children[1]->emitTree();
 
@@ -85,6 +90,11 @@ Type BinopNode::getType() {
 }
 
 Type BinopNode::getMaxType() {
+  // Handle "-" Binop -> Unop
+  if(children.size() == 1 && token->getType() == BinopToken::Minus) {
+    return children[0]->getType();
+  }
+
   // string concatenation
   if(children[0]->getType() == Type::String && children[1]->getType() == Type::String) {
     if(token->getType() == BinopToken::Plus) {
