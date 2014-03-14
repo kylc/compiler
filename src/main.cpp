@@ -61,7 +61,10 @@ int main(int argc, char **argv) {
     Parser parser(fs, tokenizer);
 
     Node *root = parser.parse();
-    root->printTree();
+
+    if(vm.count("verbose")) {
+      root->printTree();
+    }
 
     std::cout << root->emitTree() << std::endl;
 
