@@ -40,7 +40,7 @@ std::string BinopNode::emitTree() {
   std::string l = children[0]->emitTree();
   std::string r = children[1]->emitTree();
 
-  if(getType() == Type::Float) {
+  if(getMaxType() == Type::Float) {
     if(children[0]->getType() == Type::Int) {
       l += " s>f";
     }
@@ -54,7 +54,7 @@ std::string BinopNode::emitTree() {
 }
 
 std::string BinopNode::emit() {
-  if(children[0]->getType() != children[1]->getType()) {
+  if(getMaxType() == Type::Float) {
     // Handle corner-case of int->float upcast
     if((children[0]->getType() != Type::Int && children[0]->getType() != Type::Float) ||
        (children[1]->getType() != Type::Int && children[1]->getType() != Type::Float)) {
