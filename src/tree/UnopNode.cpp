@@ -23,7 +23,7 @@ std::string UnopNode::emitTree() {
     }
   }
 
-  return l + " " + emit();
+  return l + " " + emit() + " ";
 }
 
 std::string UnopNode::emit() {
