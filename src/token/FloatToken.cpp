@@ -32,6 +32,9 @@ boost::shared_ptr<Token> FloatToken::parse(std::istream &is, SymbolTablePtr symb
         } else if(next == '.') {
           text += next;
           state = 2;
+        } else if(next == 'e' || next == 'E') {
+          text += next;
+          state = 3;
         } else {
           state = REJECT_STATE;
         }
