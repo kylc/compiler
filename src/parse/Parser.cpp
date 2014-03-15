@@ -262,6 +262,7 @@ void Parser::stmts(Node &parent) {
         peek<FloatToken>() ||
         peek<StringToken>() ||
         peek<BoolToken>() ||
+        peek<ParenToken>(ParenToken::Left) ||
         p->getText() == "if" ||
         p->getText() == "while" ||
         p->getText() == "stdout" ||
