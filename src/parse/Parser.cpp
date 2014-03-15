@@ -6,7 +6,6 @@
 #include "tree/AssignNode.h"
 #include "tree/BinopNode.h"
 #include "tree/ConstNode.h"
-#include "tree/ExprNode.h"
 #include "tree/IfNode.h"
 #include "tree/LetNode.h"
 #include "tree/OperNode.h"
@@ -316,9 +315,7 @@ void Parser::stmts(Node &parent) {
 void Parser::exprlist(Node &parent) {
   BOOST_LOG_TRIVIAL(trace) << "exprlist";
 
-  ExprNode *first = new ExprNode();
-  expr(*first);
-  parent.addChild(first);
+  expr(parent);
 
   boost::shared_ptr<Token> p = tokenizer.peek(stream, symbols);
   while(peek<AssignToken>() ||
@@ -334,9 +331,7 @@ void Parser::exprlist(Node &parent) {
       p->getText() == "while" ||
       p->getText() == "stdout" ||
       p->getText() == "let") {
-    ExprNode *next = new ExprNode();
-    expr(*next);
-    parent.addChild(next);
+    expr(parent);
   }
 
   return;
