@@ -1,0 +1,8 @@
+[
+  [let [[a int]]] [:= a 5]
+  [while [> a 0]
+    [let [[b int]]] [:= b a]
+    [if [> 2 1] [stdout a] [stdout b]]
+    [:= a [- a 1]]
+  ]
+]
