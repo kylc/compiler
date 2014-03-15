@@ -319,7 +319,6 @@ void Parser::exprlist(Node &parent) {
       p->getText() == "while" ||
       p->getText() == "stdout" ||
       p->getText() == "let") {
-  BOOST_LOG_TRIVIAL(trace) << "exprlister";
     ExprNode *next = new ExprNode();
     expr(*next);
     parent.addChild(next);
