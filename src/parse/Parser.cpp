@@ -253,7 +253,22 @@ void Parser::stmts(Node &parent) {
     IfNode *node = new IfNode();
     expr(*node);
     expr(*node);
-    expr(*node);
+
+    boost::shared_ptr<Token> p = tokenizer.peek(stream, symbols);
+    if(peek<AssignToken>() ||
+        peek<BinopToken>() ||
+        peek<UnopToken>() ||
+        peek<NameToken>() ||
+        peek<IntToken>() ||
+        peek<FloatToken>() ||
+        peek<StringToken>() ||
+        peek<BoolToken>() ||
+        p->getText() == "if" ||
+        p->getText() == "while" ||
+        p->getText() == "stdout" ||
+        p->getText() == "let") {
+      expr(*node);
+    }
     parent.addChild(node);
 
     return;
